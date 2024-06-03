@@ -1,12 +1,12 @@
 CREATE TABLE "Theater"(
-    "Id" SERIAL PRIMARY KEY,
+    "Id" UUID PRIMARY KEY NOT NULL  ,
     "Location" VARCHAR(255),
     "WorkingHours" VARCHAR(255),
     "TicketId" VARCHAR(255)
 );
 
-CREATE TABLE "Ticket" (
-    "Id" SERIAL PRIMARY KEY,
+CREATE TABLE "Ticket" ( 
+    "Id" UUID PRIMARY KEY NOT NULL,
     "Price" INT,
     "Seat" VARCHAR(255),
     "DateOfShowing" DATE,
@@ -17,7 +17,7 @@ CREATE TABLE "Ticket" (
 );
 
 CREATE TABLE "Customer" (
-    "Id" SERIAL PRIMARY KEY,
+    "Id" UUID PRIMARY KEY NOT NULL,
     "Name" VARCHAR(255),
     "HasTicket" BOOLEAN,
     "PersonInfoId" VARCHAR(255)
@@ -26,14 +26,14 @@ CREATE TABLE "Customer" (
 );
 
 CREATE TABLE "PersonInfo" (
-    "Id" SERIAL PRIMARY KEY,
+    "Id" UUID PRIMARY KEY NOT NULL,
     "Address" VARCHAR(255),
     "Phone" VARCHAR(255)
 
 );
 
 CREATE TABLE "Actor" (
-    "Id" SERIAL PRIMARY KEY ,
+    "Id" UUID PRIMARY KEY NOT NULL ,
     "Name" VARCHAR(255),
     "Workplace" VARCHAR(255),
     "PersonInfoId" VARCHAR(255)
@@ -42,7 +42,7 @@ CREATE TABLE "Actor" (
 );
 
 CREATE TABLE "PaymentInfo" (
-    "Id" SERIAL PRIMARY KEY,
+    "Id" UUID PRIMARY KEY NOT NULL,
     "Name" VARCHAR(255),
     "Workplace" VARCHAR(255),
     "PaymentMethodId" VARCHAR(255)
@@ -53,9 +53,22 @@ CREATE TABLE "PaymentInfo" (
 
 
 CREATE TABLE "PaymentMethod" (
-    "Id" SERIAL PRIMARY KEY ,
+    "Id" UUID PRIMARY KEY NOT NULL,
     "PaymentSuccessful" BOOLEAN,
     "Method" TEXT[]
 );
-INSERT INTO "PaymentMethod" ("Method")
-VALUES(ARRAY['Visa','MasterCard','Cash','etc.']);
+INSERT INTO "PaymentMethod" ("Id","Method")
+VALUES(gen_random_uuid(),ARRAY['Visa','MasterCard','Cash','etc.']);
+
+insert into "PaymentInfo" ("Id")
+VALUES(gen_random_uuid());
+insert into "Actor" ("Id")
+VALUES(gen_random_uuid());
+insert into "PersonInfo" ("Id")
+VALUES(gen_random_uuid());
+insert into "Customer" ("Id")
+VALUES(gen_random_uuid());
+insert into "Ticket" ("Id")
+VALUES(gen_random_uuid());
+insert into "Theater" ("Id")
+VALUES(gen_random_uuid());
