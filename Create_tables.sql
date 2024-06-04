@@ -15,6 +15,11 @@ CREATE TABLE "Ticket" (
     -- CONSTRAINT FK_PaymentInfo_PaymentInfoId FOREIGN KEY ("PaymentInfoId") REFERENCES ("PaymentInfo") ("Id")
 
 );
+alter table "PaymentInfo" 
+--drop column "PaymentInfoId"
+add column "FK_PaymentMethod_PaymentMethodId" UUID,
+add CONSTRAINT "FK_PaymentMethod_PaymentMethodId" FOREIGN KEY ("FK_PaymentMethod_PaymentMethodId") REFERENCES "PaymentMethod" ("Id");
+
 
 CREATE TABLE "Customer" (
     "Id" UUID PRIMARY KEY NOT NULL,
